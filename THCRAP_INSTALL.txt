@@ -1,0 +1,11 @@
+THCRAP INSTALL
+==============
+
+1. Build UniversalTouhouInput.dll (or download the GitHub Actions artifact).
+2. Copy UniversalTouhouInput.dll to:
+
+   <THCRAP>\bin\
+
+3. Launch th06..th20 using your normal thcrap shortcut/configuration.
+
+No original Touhou EXE should be replaced or edited.

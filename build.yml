@@ -1,0 +1,36 @@
+name: Build UniversalTouhouInput
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: windows-2022
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Build Win32 Release
+        run: msbuild UniversalTouhouInput.sln /m /p:Configuration=Release /p:Platform=Win32
+
+      - name: Package
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path package | Out-Null
+          Copy-Item dist/UniversalTouhouInput.dll package/
+          Copy-Item README.md package/
+          Copy-Item test_sendinput.py package/
+          Compress-Archive -Path package/* -DestinationPath UniversalTouhouInput-win32.zip -Force
+
+      - name: Upload DLL artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: UniversalTouhouInput-win32
+          path: UniversalTouhouInput-win32.zip
+          if-no-files-found: error

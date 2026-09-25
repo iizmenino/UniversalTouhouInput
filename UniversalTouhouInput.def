@@ -1,0 +1,4 @@
+LIBRARY UniversalTouhouInput
+EXPORTS
+    thcrap_plugin_init
+    universal_touhou_input_mod_detour
